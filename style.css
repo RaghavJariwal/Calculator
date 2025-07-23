@@ -1,0 +1,290 @@
+/* Base Variables */
+:root {
+    --bg-color: #0f0e17;
+    --text-color: #fffffe;
+    --primary: #6246ea;
+    --secondary: #d1d1e9;
+    --accent: #e45858;
+    --display-bg: rgba(255, 255, 255, 0.05);
+    --button-bg: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light Theme Variables */
+.light-theme {
+    --bg-color: #fffffe;
+    --text-color: #2e2e3a;
+    --primary: #6246ea;
+    --secondary: #3a3a4a;
+    --accent: #e45858;
+    --display-bg: rgba(15, 14, 23, 0.05);
+    --button-bg: rgba(15, 14, 23, 0.1);
+    --border-color: rgba(15, 14, 23, 0.1);
+}
+
+/* Base Styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Space Grotesk', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    transition: all 0.5s ease;
+    background-image: radial-gradient(circle at 20% 30%, rgba(98, 70, 234, 0.1) 0%, transparent 30%),
+                    radial-gradient(circle at 80% 70%, rgba(212, 100, 252, 0.1) 0%, transparent 30%);
+    overflow: hidden;
+}
+
+.calculator-container {
+    width: 100%;
+    max-width: 320px;
+    background: rgba(15, 14, 23, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 25px 50px -12px rgba(98, 70, 234, 0.3),
+                0 0 15px rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #6246ea, #d066fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 1px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toggle-container {
+    position: relative;
+    width: 45px;
+    height: 22px;
+}
+
+.toggle-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #2a2a3a, #3a3a4a);
+    transition: .4s;
+    border-radius: 34px;
+    border: 1px solid var(--border-color);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: '';
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: linear-gradient(145deg, #f6e6ff, #d1d1e9);
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-checkbox:checked + .toggle-slider:before {
+    transform: translateX(22px);
+}
+
+.display {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 1.8rem;
+    text-align: right;
+    background: var(--display-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+button:hover::before {
+    opacity: 1;
+}
+
+.number {
+    background: var(--button-bg);
+}
+
+.operator {
+    background: linear-gradient(145deg, #6246ea, #d066fd);
+    color: white;
+}
+
+.equals {
+    background: linear-gradient(145deg, #e45858, #ff7c7c);
+    color: white;
+    grid-column: span 2;
+}
+
+.clear {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.moon-sun {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    top: -40px;
+    right: -40px;
+    filter: blur(12px);
+    opacity: 0.1;
+    z-index: -1;
+    background: radial-gradient(circle at 30% 30%, #d1d1e9, #a7a7c9);
+}
+
+.toggle-icon {
+    font-size: 1.1rem;
+}
+
+/* Light Theme Overrides */
+.light-theme .calculator-container {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 25px 50px -12px rgba(98, 70, 234, 0.15),
+                0 0 15px rgba(15, 14, 23, 0.1);
+}
+
+.light-theme .toggle-slider {
+    background: linear-gradient(90deg, #e0e0e0, #f0f0f0);
+}
+
+.light-theme .toggle-slider:before {
+    background: linear-gradient(145deg, #6246ea, #d066fd);
+}
+
+.light-theme button::before {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.light-theme .clear {
+    background: rgba(15, 14, 23, 0.2);
+}
+
+.light-theme .moon-sun {
+    background: radial-gradient(circle at 70% 70%, #ffde82, #ff9e5e);
+}
+
+/* Media Queries */
+@media (max-width: 400px) {
+    .calculator-container {
+        padding: 15px;
+        border-radius: 20px;
+    }
+    
+    .title {
+        font-size: 1.1rem;
+    }
+    
+    .display {
+        height: 60px;
+        font-size: 1.5rem;
+        padding: 10px;
+    }
+    
+    button {
+        height: 50px;
+        font-size: 1rem;
+    }
+    
+    .toggle-container {
+        width: 40px;
+        height: 20px;
+    }
+    
+    .toggle-slider:before {
+        height: 14px;
+        width: 14px;
+    }
+    
+    .toggle-checkbox:checked + .toggle-slider:before {
+        transform: translateX(20px);
+    }
+}
+
+@media (max-width: 350px) {
+    .calculator-container {
+        padding: 12px;
+    }
+    
+    .buttons {
+        gap: 8px;
+    }
+    
+    button {
+        height: 45px;
+        font-size: 0.9rem;
+    }
+}
